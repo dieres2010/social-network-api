@@ -22,7 +22,9 @@ const UserSchema = new Schema(
         ref: 'Thought'
       }
     ],
-    friends: []
+    friends: [{
+      type: mongoose.Schema.Types.ObjectId, ref: 'User'
+    }],
   },
   {
     toJSON: {
