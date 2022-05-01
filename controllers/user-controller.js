@@ -5,7 +5,7 @@ const userController = {
   getAllUser(req, res) {
     User.find({})
       .populate({
-        path: 'users',
+        path: 'thoughts',
         select: '-__v'
       })
       .select('-__v')
@@ -21,7 +21,7 @@ const userController = {
   getUserById({ params }, res) {
     User.findOne({ _id: params.id })
       .populate({
-        path: 'comments',
+        path: 'thoughts',
         select: '-__v'
       })
       .select('-__v')
@@ -34,9 +34,13 @@ const userController = {
 
   // createUser
   createUser({ body }, res) {
+    console.log ("Body", body);
     User.create(body)
       .then(dbUserData => res.json(dbUserData))
-      .catch(err => res.json(err));
+
+      .catch(err => {
+        console.log(err);
+        res.json(err)});
   },
 
   // update user by id

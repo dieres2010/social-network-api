@@ -1,9 +1,8 @@
 const { Schema, model } = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
 
 const UserSchema = new Schema(
   {
-    userName: {
+    username: {
       type: String,
       unique: true,
       required: true,
@@ -13,9 +12,14 @@ const UserSchema = new Schema(
       type: String,
       trim: true,
       unique: true,
-      required: 'Email address is required',
-      validate: [isEmail, 'invalid email address']
-    },
+      validate: {
+          validator: function(v) {
+              return /^([a-zA-Z0-9_\.-]+)@([\da-z\.-]+)\.([a-z]{2,6})(\.[a-z]{2,6})?$/.test(v);
+          },
+          message: "Please enter a valid email"
+      },
+      required: [true, "Email required"]
+  },
     thoughts: [
       {
         type: Schema.Types.ObjectId,
@@ -23,7 +27,8 @@ const UserSchema = new Schema(
       }
     ],
     friends: [{
-      type: mongoose.Schema.Types.ObjectId, ref: 'User'
+      type: Schema.Types.ObjectId, 
+      ref: 'User'
     }],
   },
   {
@@ -38,12 +43,10 @@ const UserSchema = new Schema(
 
 // get total count of friends on retrieval
 UserSchema.virtual('friendCount').get(function() {
-  return this.friends.reduce(
-    (total, friend) => total + friend.length + 1,
-    0
-  );
+  return this.friends.length
+
 });
 
-const Pizza = model('User', UserSchema);
+const User = model('User', UserSchema);
 
 module.exports = User;
