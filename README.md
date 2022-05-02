@@ -47,4 +47,9 @@ The following animation shows the POST and DELETE routes for a user’s friend l
 
 ## Walkthrough Video Link:
 
+![walkthrough video 1/2](https://drive.google.com/file/d/1qsqB8aLAdwZMF4PIsugkmrJwHK4r8cwe/view)
+
+![walkthrough video 2/2](https://drive.google.com/file/d/1sFoCRT10GYz5toje0aTKc1-LsuM39VIZ/view)
+
+
 
